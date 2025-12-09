@@ -538,7 +538,24 @@ app.get("/listagem/equipes", auth, (req, res) => {
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h3>Equipes Cadastradas</h3>
                             <a href="/cadastro/equipe" class="btn btn-primary">+ Nova Equipe</a>
+                        </div>`;
+
+    if (ListaEquipe.length === 0) {
+        conteudo += `
+                        <div class="alert alert-info text-center" role="alert">
+                            Nenhuma equipe cadastrada.
                         </div>
+                        <div class="mt-3">
+                            <a href="/home" class="btn btn-secondary">Voltar</a>
+                        </div>
+                    </div>
+
+                            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+                    </body>
+                    </html>
+        `;
+    } else {
+        conteudo += `
 
                         <div class="card shadow-sm">
                             <div class="card-body p-0">
@@ -555,13 +572,6 @@ app.get("/listagem/equipes", auth, (req, res) => {
 
                                     <tbody>`;
 
-    if (ListaEquipe.length === 0) {
-        conteudo += `
-                                        <tr>
-                                            <td colspan="4" class="text-center">Nenhuma equipe cadastrada.</td>
-                                        </tr>
-                                        `;
-    } else {
         for (let i = 0; i < ListaEquipe.length; i++) {
             conteudo += `
                                         <tr>
@@ -572,8 +582,7 @@ app.get("/listagem/equipes", auth, (req, res) => {
                                         </tr>                       
                                             `;
         }
-    }
-    conteudo += `
+        conteudo += `
                                     </tbody >
                                 </table >
                             </div >
@@ -587,6 +596,7 @@ app.get("/listagem/equipes", auth, (req, res) => {
                     </body >
                     </html >
         `;
+    }
     res.setHeader("Content-Type", "text/html");
     res.send(conteudo);
 }
